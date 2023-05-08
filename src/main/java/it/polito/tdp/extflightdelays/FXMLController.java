@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.extflightdelays.model.Model;
+import it.polito.tdp.extflightdelays.model.Rotta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +36,28 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
-    	//TODO
+    	String input = this.distanzaMinima.getText();
+    	Integer inputNum = 0;
+    	try {
+    		inputNum = Integer.parseInt(input);
+    	}catch(NumberFormatException e) {
+    		this.txtResult.setText("Inserire un numero!");
+    		return;
+    	}
+    	
+    	this.model.creaGrafo(inputNum);
+    	
+    	this.txtResult.clear();
+    	
+    	if(this.model.isGrafoLoaded()) {
+    		this.txtResult.appendText("Il numero dei vertici è "+model.getVerticesNum()+"\n\n");
+    		this.txtResult.appendText("Il numero dei vertici è "+model.getEdgesNum()+"\n\n");
+    		this.txtResult.appendText("Le rotte trovate sono : \n");
+    		for(Rotta r : this.model.getAllRotte()) {
+    			this.txtResult.appendText(""+r.getPartenza().getAirportName()+" - "+r.getArrivo().getAirportName()+" : " +r.getDistanza()+"\n");
+    		}
+    	}
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

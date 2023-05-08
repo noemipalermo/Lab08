@@ -8,7 +8,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConnectDB {
 
-	private static final String jdbcURL = "jdbc:mysql://localhost/extflightdelays";
+	private static final String jdbcURL = "jdbc:mariadb://localhost/extflightdelays";
 	private static HikariDataSource ds;
 	
 	public static Connection getConnection() {
